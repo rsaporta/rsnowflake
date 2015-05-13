@@ -1,5 +1,15 @@
 ### These are a collection of helper functions and utilities.  Mostly wrappers to repetitive code
 
+library(data.table)
+library(magrittr)
+
+
+isErr <- function(x)  {  
+  if (isTRUE(attr(x, "isErr")))
+    return(TRUE)
+  ## ELSE
+  return( inherits(try(eval(x), silent=TRUE), "try-error") )
+}
 
 valueIfNull <- function(x, value) {
 ## a wrapper to check if x is null and if so returns value
@@ -27,12 +37,6 @@ is.char_of_length1 <- function(x, fail.if.not=FALSE, showWarnings=TRUE, hint=NUL
   return(FALSE)
 }
 
-isErr <- function(x)  {  
-  if (isTRUE(attr(x, "isErr")))
-    return(TRUE)
-  ## ELSE
-  return( inherits(try(eval(x), silent=TRUE), "try-error") )
-}
 
 inDebugMode <- function(...)
   return (FALSE)
@@ -282,3 +286,11 @@ setkeyIfNot <- function(DT, ..., superset.ok=TRUE, organize=FALSE, verbose=TRUE,
 
   return(invisible(DT))
 }
+
+
+classAppend_ <- function(X, classToAppend=NULL) {
+    newClasses <- unique(c(classToAppend, class(X)))
+    data.table::setattr(X, "class", newClasses)
+    invisible(X)
+}
+
