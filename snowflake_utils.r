@@ -228,7 +228,10 @@ sfQry <- function(qry
   return(ret)
 }
 
-sfGetCon <- function(uid=getOption("snowflake_uid"), pwd=getOption("snowflake_pwd"), assign=TRUE, envir=globalenv(), refresh=NULL) {
+sfGetCon <- function(uid=getOption("snowflake_uid"), pwd=getOption("snowflake_pwd"), drv=getOption("snowflake_driver"), assign=TRUE, envir=globalenv(), refresh=NULL) {
+
+  if (is.null(drv))
+    stop ("drv cannot be NULL.\n\nHINT: run   setSnowflakeOptions()")
 
   options("snowflake_inuse" = TRUE)
 
@@ -238,7 +241,7 @@ sfGetCon <- function(uid=getOption("snowflake_uid"), pwd=getOption("snowflake_pw
       return(get("sfcon", envir=envir))
   }
 
-  sfcon <- odbcConnect("SnowflakeDSII", uid=uid, pwd=pwd)
+  sfcon <- odbcConnect(drv, uid=uid, pwd=pwd)
 
   if (isTRUE(assign))
     assign("sfcon", sfcon, envir=envir)
