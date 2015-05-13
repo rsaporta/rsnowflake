@@ -10,14 +10,14 @@ This is very much a work in progress.
 
 ## Basic usage
 
-### Clone the repo
+*Clone the repo*  
 git clone https://github.com/rsaporta/rsnowflake
 
-### Make sure the snowflake driver is setup
-<Follow instructions provided by snowflake>
+*Make sure the snowflake driver is setup*  
+\<Follow instructions provided by snowflake\>
 
 
-## IN R
+## in R
 
     ### Make sure data.table and magrittr are installed
     install.packages("data.table")
