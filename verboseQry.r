@@ -214,3 +214,14 @@ verboseQry <- function(qry, max.width=72L, max.lines=20L, spaces=3L
   }
   return(qry)
 }
+
+
+setQry  <- function(qry) {
+  if (any(!sapply(qry, is.character)))
+    stop ("qry (or an element of it) is not a character")
+  if (is.list(qry)) {
+    for (i in qry)
+      classAppend_(qry[[i]], "query")
+  } else
+    classAppend_(qry, "query")
+}
